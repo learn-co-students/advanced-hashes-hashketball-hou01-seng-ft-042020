@@ -246,7 +246,7 @@ describe 'hashketball' do
 
 end
 
-##### If you'd like to work on the bonus, uncomment the tests below
+# #### If you'd like to work on the bonus, uncomment the tests below
 
 # describe 'bonus' do
 
