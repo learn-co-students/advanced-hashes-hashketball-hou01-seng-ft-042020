@@ -184,7 +184,6 @@ def player_numbers(team_name)
         end
       end
     end 
-    
   end
   result
 end
@@ -210,7 +209,6 @@ def player_stats(player_name)
       end 
     end 
   end
-  
 end
 
 def big_shoe_rebounds
@@ -221,7 +219,6 @@ def big_shoe_rebounds
       team_data[:players].collect do |player_list|
         biggest_shoe_size << player_list[:shoe]
       end 
-      # biggest_shoe_size.max 
       result = biggest_shoe_size.index(biggest_shoe_size.max)
       return team_data[:players][result][:rebounds]
     end
