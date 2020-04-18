@@ -157,6 +157,8 @@ def num_points_scored(player_input)
   
   # it took me forever to get this simple one because I messed
   # my helper method above
+  # maybe I expected array[count][:points] to return without typing "return"... 
+  # I suppose that's because it's a temporary value or something?
  
   get_players.each do |player|
     if player[:player_name] == player_input
