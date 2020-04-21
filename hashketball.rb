@@ -131,46 +131,47 @@ def game_hash
   }
 end
 
-def num_points_scored(player_name)
-  game_hash.collect do |location, team_data|
-    team_data.collect do |attribute, data|
-      team_data[:players].collect do |player_list|
-        if player_list[:player_name] == player_name
-          return player_list[:points]
-        end
-      end 
-    end 
+def get_player
+  game_hash.values.map do |team_data|
+    team_data[:players]
+  end.flatten
+end
+
+def find_player(name)
+  player = get_player.find do |player|
+    player[:player_name] == name
   end
+end
+
+def num_points_scored(player_name)
+  player = find_player(player_name)
+  player[:points]
 end
 
 def shoe_size(player_name)
-  game_hash.collect do |location, team_data|
-    team_data.collect do |attribute, data|
-      game_hash[location][:players].collect do |player_list|
-        if player_list[:player_name] == player_name
-          return player_list[:shoe]
-        end
-      end
-    end 
-  end 
-end
-
-def team_colors(team_name)
-  game_hash.collect do |location, team_data|
-    team_data.collect do |attribute, data|
-      if data == team_name
-        return game_hash[location][:colors]
-      end
-    end
-  end
+  # get_player.find{|player| player[:player_name] == player_name}[:shoe]
+  player = find_player(player_name)
+  player[:shoe] 
 end
 
 def team_names
-  result = []
-  game_hash.collect do |location, team_data|
-    result << game_hash[location][:team_name]
+  game_hash.values.map do |team_data|
+    team_data[:team_name]
+  end.flatten
+end
+
+def find_team(team_name)
+  game_hash.values.map do |team_data|
+    team_data[:team_name] == team_name
   end
-  result
+end
+
+def team_colors(team_name)
+  game_hash.values.map do |team_data|
+    if team_data[:team_name] == team_name
+      return team_data[:colors]
+    end
+  end
 end
 
 def player_numbers(team_name)
