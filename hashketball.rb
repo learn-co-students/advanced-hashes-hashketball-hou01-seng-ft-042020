@@ -191,23 +191,11 @@ def player_numbers(team_name)
 end
 
 def player_stats(player_name)
-  result = {}
-  game_hash.collect do |location, team_data|
-    team_data.collect do |attribute, data|
-      team_data[:players].collect do |player_list|
-        if player_list[:player_name] == player_name
-          # player_list.delete_if{|key, value| key == 'player_name'}
-          # return player_list
-          result[:number] = player_list[:number]
-          result[:shoe] = player_list[:shoe]
-          result[:points] = player_list[:points]
-          result[:rebounds] = player_list[:rebounds]
-          result[:assists] = player_list[:assists]
-          result[:steals] = player_list[:steals]
-          result[:blocks] = player_list[:blocks]
-          result[:slam_dunks] = player_list[:slam_dunks]
-          return result
-        end 
+  game_hash.values.map do |team_data|
+    team_data[:players].collect do |player_list|
+      if player_list[:player_name] == player_name
+        player_list.delete(:player_name)
+        return player_list
       end 
     end 
   end
@@ -215,13 +203,11 @@ end
 
 def big_shoe_rebounds
   biggest_shoe_size = []
-  game_hash.collect do |location, team_data|
-    team_data.collect do |attribute, data|
-      team_data[:players].collect do |player_list|
-        biggest_shoe_size << player_list[:shoe]
-      end 
-      result = biggest_shoe_size.index(biggest_shoe_size.max)
-      return team_data[:players][result][:rebounds]
-    end
+  game_hash.values.map do |team_data|
+    team_data[:players].collect do |player_list|
+      biggest_shoe_size << player_list[:shoe]
+    end 
+    result = biggest_shoe_size.index(biggest_shoe_size.max)
+    return team_data[:players][result][:rebounds]
   end
 end
