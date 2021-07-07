@@ -1,4 +1,5 @@
 # Write your code below game_hash
+require 'pry'
 def game_hash
   {
     home: {
@@ -125,5 +126,124 @@ def game_hash
     }
   }
 end
+
+def num_points_scored(player_name)
+  #binding.pry
+  game_hash.each do |location, team_data|
+    #are you ABSOLUTELY SURE what 'location' and 'team data' are? use binding.pry to find out!
+    #binding.pry
+    team_data.each do |attribute, data|
+      #are you ABSOLUTELY SURE what 'attribute' and 'team data' are? use binding.pry to find out!
+      #binding.pry
+
+      #what is 'data' at each loop throughout .each block? when will the following line of code work and when will it break?
+      data.each do |data_item, value|
+          binding.pry
+      #data_item.each do ||
+      end
+    end
+  end
+end
+
+
+require 'pry'
+
+def num_points_scored(name)
+  game_hash.each do |team, team_info|
+    team_info[:players].each do |player_hash|
+      if player_hash[:player_name] == name
+      return player_hash[:points]
+      # binding.pry
+      end
+    end
+  end
+end
+
+def shoe_size(name)
+
+  game_hash.each do |team, team_info|
+    team_info[:players].each do |player_hash|
+      if player_hash[:player_name] == name
+        return player_hash[:shoe]
+      end
+    end
+  end
+end
+
+def team_colors(name_of_team)
+
+  game_hash.each do |team, team_info|
+    if team_info[:team_name] == name_of_team
+      return team_info[:colors]
+    end
+  end
+
+end
+
+
+def team_names
+  arr = []
+  game_hash.each do |team, team_info|
+    arr << team_info[:team_name]
+  end
+arr
+end
+
+
+def player_numbers(name_of_team)
+
+  arr = []
+  game_hash.each do |team, team_info|
+    if team_info[:team_name] == name_of_team
+      team_info[:players].each do |player_hash|
+        arr << player_hash[:number]
+      end
+    end
+
+  end
+arr
+end
+
+def player_stats(name)
+
+  game_hash.each do |team, team_info|
+    team_info[:players].each do |player_hash|
+      if player_hash[:player_name] == name
+        return player_hash #.select {|k,v| k !=:player_name}
+      end
+    end
+  end
+end
+
+
+def big_shoe_rebounds
+  game_hash.each do |team, team_info|
+    team_info[:players].each do |player_hash|
+      if player_hash[:shoe] == get_shoe_sizes[-1]
+        return player_hash[:rebounds]
+      end
+    end
+  end
+end
+
+def get_shoe_sizes
+
+  arr = []
+  game_hash.each do |team, team_info|
+    team_info[:players].each do |player_hash|
+      arr << player_hash[:shoe]
+    end
+      return sorted = arr.sort!
+  end
+
+end
+
+
+
+
+
+
+
+
 
 # Write code here
